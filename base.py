@@ -70,15 +70,15 @@ jong = []
 order = []
 url = 'https://openapi.koreainvestment.com:9443'
 file = open('acntNo.txt', 'r')
-acntNo = file.read()
+acntNo = file.read().strip()
 file.close()
 
 file = open('appKey.txt', 'r')
-appKey = file.read()
+appKey = file.read().strip()
 file.close()
 
 file = open('appSecret.txt', 'r')
-appSecret = file.read()
+appSecret = file.read().strip()
 file.close()
 
 hashKey = ''
@@ -260,8 +260,6 @@ def getStochestic(val, hVal, lVal):
 #######################################################################
 
 
-
-
 # 인증키
 body = {"grant_type":"client_credentials",
         "appkey":appKey, 
@@ -269,7 +267,7 @@ body = {"grant_type":"client_credentials",
 
 sendUrl = url + '/oauth2/tokenP'
 res = requests.post(sendUrl, headers=headers, data=json.dumps(body))
-#print(res)
+print(res)
 #print(res.json())
 accessToken = res.json()['access_token']
 #time.sleep(1)
