@@ -1,9 +1,14 @@
-from AutoStockPython import *
+from autostockpython import *
+from abc import ABC, abstractmethod
 
 class DataProvider():
     """
     데이터 소스로부터 데이터를 수집해서 정보를 제공하는 클래스
     """
+    def __init__(self):
+        self.index = 0
+        self.data = []
+        self.logger = logging.getLogger(__name__)
 
     @abstractmethod
     def get_info(self):
@@ -23,3 +28,27 @@ class DataProvider():
 
         }
         """
+        now = self.index
+
+        if now >= len(self.data):
+            return None
+
+        self.index = now + 1
+        return self.__create_candle_info(self.data[now])
+
+    def __create_candle_info(self, data):
+        try: 
+            return {
+            "market": data["market"],
+            "date_time": data["candle_data_time_kst"],
+            "opening_price": data["opening_price"],
+            "high_price": data["high_price"],
+            "low_price": data["low_price"],
+            "closing_price": data["trade_price"],
+            "acc_price": data["candle_acc_trade_price"],
+            "acc_volume": data["candle_acc_trade_volume"],
+        }
+        except:
+            self.logger.warning("invalid data fro candle info")
+            return None
+
