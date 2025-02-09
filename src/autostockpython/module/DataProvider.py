@@ -1,5 +1,6 @@
 from autostockpython import *
 from abc import ABC, abstractmethod
+import logging
 
 class DataProvider():
     """
