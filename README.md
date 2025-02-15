@@ -12,5 +12,6 @@ $ streamlit run src/autostockpython/frontend/front_stream.py
 ### FastAPI
 ```
 $uvicorn src.autostockpython.backend.backend_fast:app --reload
-
 ```
+
+### 
