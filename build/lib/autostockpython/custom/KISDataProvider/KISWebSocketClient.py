@@ -77,7 +77,6 @@ class KISWebSocketClient:
                 while True:
                     data = await kis_ws.recv()
                     print(f"📊 받은 데이터: {data}")
-
                     # 연결된 모든 클라이언트에게 데이터 전송
                     await self.broadcast(data)
 

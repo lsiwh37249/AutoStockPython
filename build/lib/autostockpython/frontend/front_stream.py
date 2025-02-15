@@ -24,6 +24,7 @@ def websocket_thread():
 # Streamlit 앱 시작
 st.title("실시간 호가 데이터")
 
+#초기화
 if "latest_data" not in st.session_state:
     st.session_state["latest_data"] = {}
 

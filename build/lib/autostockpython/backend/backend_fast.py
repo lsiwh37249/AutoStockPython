@@ -3,8 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 import json
 import os
-from KISWebSocketClient import KISWebSocketClient
+from autostockpython.custom.KISDataProvider.KISWebSocketClient import KISWebSocketClient
+from autostockpython.custom.YFDataProvider.YFDataProvider import YFDataProvider
 import websockets
+
 
 app = FastAPI()
 
@@ -18,6 +20,11 @@ app.add_middleware(
 )
 
 kis_client = KISWebSocketClient()  # 한국투자증권 WebSocket 클라이언트 객체 생성
+yf_dp = YFDataProvider()
+
+@app.get("history")
+def get_history_ticker():
+    return yf_dp.get_info()
 
 @app.websocket("/ws")
 async def websocket_handler(websocket: WebSocket):
