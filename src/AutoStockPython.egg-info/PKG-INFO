@@ -8,7 +8,8 @@ Requires-Python: ==3.11.*
 Description-Content-Type: text/markdown
 Requires-Dist: jupyter>=1.1.1
 Requires-Dist: note>=0.5.2
-Requires-Dist: Crypto>=1.4.1
+Requires-Dist: pycryptodome>=3.21.0
+Requires-Dist: websockets>=14.2
 
 ### 기본 자동 매매(Show me the money)(SMTM)
 1. 데이터 수집 : 가격 및 거래 정보, 뉴스, SNS 반응을 수집한다.

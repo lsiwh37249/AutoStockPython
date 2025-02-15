@@ -8,4 +8,4 @@ from .module.Trader import *
 
 #custom
 from .custom.MyFirstDataProvider import *
-
+from .custom.KISDataProvider.KISWebSocketClient import *
