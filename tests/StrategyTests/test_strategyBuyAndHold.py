@@ -1,3 +1,4 @@
+from autostockpython.custom.strategy.StrategyBuyAndHold import StrategyBuyAndHold
 def test_ITG_get_request_after_update_info_and_results(self):
     #생성과 초기화를 같이 진행
     strategy = StrategyBuyAndHold()

@@ -2,7 +2,7 @@ from autostockpython import *
 from abc import ABC, abstractmethod
 import logging
 
-class Strategy():
+class Strategy(ABC):
     """
     데이터 소스로부터 데이터를 수집해서 정보를 제공하는 클래스
     """
