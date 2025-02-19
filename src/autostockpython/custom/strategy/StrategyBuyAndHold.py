@@ -1,20 +1,20 @@
 import copy
 
-from autostockpython.module.Strategy import Strategy
 import logging
 from datetime import datetime, timedelta
 import time
 
-class StrategyBuyAndHold(Strategy):
+class StrategyBuyAndHold():
     def __init__(self, budget, min_price=5000):
         self.data = [] # 거래 데이터 리스트
         self.result = [] # 거래 요청 결과 리스트
         self.request = [] # 마지막 거래 요청
         self.waiting_requests = []
-        self.budget = budget
-        self.balance = budget
+        self.budget = budget # 예산
+        self.balance = budget # 남은 금액
         self.min_price = min_price
         self.is_simulation = False
+        self.COMMISSION_RATIO  = 0.007
         self.logger = logging.getLogger(__name__)
 
     def update_trading_info(self, info):
@@ -79,7 +79,7 @@ class StrategyBuyAndHold(Strategy):
 
     def update_result(self, result):
         """
-        거래 결과를 업데이트하는 메서드 : 투자자가 거래소에 주문을 생성하는 것과 같다.
+        요청한 거래 결과를 업데이트하는 메서드
         request : 거래 요청 정보
         result:
         {
@@ -93,6 +93,25 @@ class StrategyBuyAndHold(Strategy):
         }
         """
 
+        request = result["request"]
+        if result["state"] == "requested":
+            self.waiting_requests[request["id"]] = result
+            return
 
+        if result["state"] == "done" and request["id"] in self.waiting_requests:
+            del self.waiting_requests[request["id"]]
 
-        pass
+        total = float(result["price"]) * float(result["amount"])
+        fee = total * self.COMMISSION_RATIO
+        if result["type"] == "buy":
+            self.balance -= round(total + fee)
+        else:
+            self.balance += round(total - fee)
+
+        self.logger.info(f"[RESULT] id : {result['request']['id']}")
+        self.logger.info(f"==================")
+        self.logger.info(f"type: {result['type']}, msg: {result['msg']}")
+        self.logger.info(f"price: {result['price']}, amount: {result['amount']}")
+        self.logger.info(f"total: {total}, balace: {self.balance}")
+        self.logger.info(f"==================")
+        self.result.append(copy.deepcopy(result))
