@@ -6,8 +6,6 @@ import json
 import os
 import pandas as pd
 
-import
-
 class KISDataProvider(DataProvider):
     def __init__(self):
         super().__init__()
