@@ -22,9 +22,13 @@ app.add_middleware(
 kis_client = KISWebSocketClient()  # 한국투자증권 WebSocket 클라이언트 객체 생성
 yf_dp = YFDataProvider()
 
-@app.get("history")
-def get_history_ticker():
-    return yf_dp.get_info()
+@app.get("/history")
+def get_history_ticker(ticker: str):
+    result = yf_dp.get_info(ticker)
+    if result is not None:
+        return {"ticker": ticker, "price": result}
+    else:
+        return {"error": f"Failed to get information for {ticker}"}
 
 @app.websocket("/ws")
 async def websocket_handler(websocket: WebSocket):

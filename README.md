@@ -14,4 +14,5 @@ $ streamlit run src/autostockpython/frontend/front_stream.py
 $uvicorn src.autostockpython.backend.backend_fast:app --reload
 ```
 
-### 
+###
+ 
