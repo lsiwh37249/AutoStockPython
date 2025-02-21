@@ -14,5 +14,5 @@ $ streamlit run src/autostockpython/frontend/front_stream.py
 $uvicorn src.autostockpython.backend.backend_fast:app --reload
 ```
 
-###
- 
+### Module
+- Trader : 매매 정보를 VirtualMarket에 전송한다. 이 Trader 모듈은 매매 관련 정보를 전달하는 역할  Virtual Market은 매매 정보를 토대로 매매 API에 요청하는 역할을 한다. 이를 구분한 이유는 Trader가 모바일이 될 수도, 웹이 될 가능성을 열어두기 위함이다.  
